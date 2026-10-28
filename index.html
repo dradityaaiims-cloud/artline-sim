@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dr. Singh's Art Line Sim</title>
+  <meta name="description" content="Educational arterial line and pressure transducer simulator. Not for clinical use. No patient data." />
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <header id="topbar">
+    <div class="brand">Dr. Singh's Art Line<span>Sim</span></div>
+    <nav id="modeTabs" aria-label="Mode">
+      <button data-mode="explore" class="active">Free explore</button>
+      <button data-mode="quiz">Read the trace</button>
+      <button data-mode="setup">Set up the line</button>
+      <button data-mode="game">Troubleshoot the line</button>
+      <button id="navLearn" class="learn-tab">Learn</button>
+      <button id="navModel" class="learn-tab">Model &amp; limits</button>
+      <button id="navAbout" class="learn-tab">About</button>
+    </nav>
+    <div class="tools">
+      <button id="btnTruth" title="Overlay the patient's true pressure (dashed white) on the monitor (T)">True <kbd>T</kbd></button>
+      <button id="btnBreath" title="Shade spontaneous inspiration on the monitor (B)">Breaths <kbd>B</kbd></button>
+      <button id="btnLabels" class="on" title="Wave labels on the monitor and labels in 3D (L)">Labels <kbd>L</kbd></button>
+      <button id="btnFreeze" title="Freeze the monitor (F)">Freeze <kbd>F</kbd></button>
+      <button id="btnCaliper" title="Caliper: drag the line; double-click to pin a second line and read the interval (K)">Caliper <kbd>K</kbd></button>
+      <button id="btnReport" title="Download a PDF report with waveform strips and time-stamped events (P)">Report <kbd>P</kbd></button>
+      <button id="btnReset" title="Reset the system to a correct set-up (R)">Reset <kbd>R</kbd></button>
+      <button id="btnTour" title="Guided tour">Tour</button>
+      <button id="btnHelp" title="Help (H)">Help <kbd>H</kbd></button>
+    </div>
+  </header>
+
+  <main id="split">
+    <section id="monitorPane" aria-label="Bedside monitor">
+      <canvas id="monitor"></canvas>
+      <div class="chip" id="chipMon">MONITOR · RADIAL</div>
+      <div id="frozen" class="chip warn" hidden>FROZEN</div>
+      <div id="flushBox" hidden aria-live="polite"></div>
+      <div id="notice" hidden></div>
+    </section>
+
+    <section id="bedPane" aria-label="3D bedside">
+      <div id="bedMount"></div>
+      <div class="chip" id="chipBed">BEDSIDE · drag the transducer, click the stopcock</div>
+      <div id="paneBtns"><button id="btnView" title="Reset 3D view">Reset view</button></div>
+      <div id="dock">
+        <div class="row">
+          <button id="btnFlush" class="big-btn" title="Hold to open the fast-flush valve, release for the square-wave test (hold X)">Fast flush <kbd>X</kbd></button>
+          <button id="btnCock" title="Turn the stopcock: open to the patient / off to the patient and open to air (O)">Stopcock <kbd>O</kbd></button>
+          <button id="btnZero" title="Zero to atmosphere (needs the stopcock open to air) (Z)">Zero <kbd>Z</kbd></button>
+          <span class="height"><button id="btnDown" title="Lower the transducer 1 cm (S)">▼ <kbd>S</kbd></button><span id="txHv">level</span><button id="btnUp" title="Raise the transducer 1 cm (W)">▲ <kbd>W</kbd></button></span>
+        </div>
+        <div class="row" id="fixRow"></div>
+      </div>
+    </section>
+  </main>
+
+  <section id="learn" aria-label="Learn"></section>
+  <section id="page" class="learn-body" aria-label="Page"></section>
+  <section id="modePanel"></section>
+  <footer id="disclaimer">Educational use only. Not a medical device. Not for clinical decisions, procedure planning, assessment or exams. All cases are simulated. Never enter patient information.</footer>
+
+  <div id="help" hidden>
+    <div class="card">
+      <h2>Arterial Line and Transducer Simulator</h2>
+      <p class="warn">Educational use only. Not a medical device, not for clinical use or interpretation. No patient data.</p>
+      <table>
+        <tr><td><kbd>X</kbd> (hold)</td><td>Fast flush: open the flush valve, then release for the square-wave test. Count the oscillations after release (1–2 = adequate).</td></tr>
+        <tr><td><kbd>O</kbd></td><td>Turn the stopcock: to the patient, or off to the patient and open to air</td></tr>
+        <tr><td><kbd>Z</kbd></td><td>Zero to atmosphere (only with the stopcock open to air)</td></tr>
+        <tr><td><kbd>W</kbd> / <kbd>S</kbd></td><td>Raise / lower the transducer 1 cm (or drag it in the 3D view). Level it with the green phlebostatic axis.</td></tr>
+        <tr><td><kbd>1</kbd>–<kbd>4</kbd>, <kbd>Enter</kbd></td><td>Quiz: answer, next. Set up / Troubleshoot: record the reading or finish</td></tr>
+        <tr><td><kbd>T</kbd></td><td>Show the patient's true pressure (dashed white) under the displayed trace</td></tr>
+        <tr><td><kbd>B</kbd></td><td>Shade inspiration on the monitor (to read pulsus paradoxus over whole breaths)</td></tr>
+        <tr><td><kbd>K</kbd></td><td>Caliper: drag the line to read the time after the R wave and the pressure. Double-click to pin a second line: it reads the interval and its frequency (ringing peaks after a flush)</td></tr>
+        <tr><td><kbd>F</kbd></td><td>Freeze / unfreeze the monitor</td></tr>
+        <tr><td><kbd>P</kbd></td><td>Download a PDF report: numbers, event log and waveform strips</td></tr>
+        <tr><td><kbd>L</kbd></td><td>Labels on the monitor and in 3D</td></tr>
+        <tr><td><kbd>R</kbd></td><td>Reset the system to a correct set-up (Free explore)</td></tr>
+        <tr><td><kbd>M</kbd> / <kbd>H</kbd></td><td>Cycle mode / this help</td></tr>
+      </table>
+      <h3>Tips</h3>
+      <ul>
+        <li>Do a flush test first. A shape problem with an abnormal flush test is the system's damping; a shifted trace with a normal flush test is levelling or zeroing; an odd shape with a normal flush test is the patient.</li>
+        <li>Zeroing and levelling are different acts: zeroing removes the transducer's offset (open to air); levelling fixes the hydrostatic reference (height). Neither fixes the other.</li>
+        <li>Drag in the right panel to rotate the view; scroll to zoom.</li>
+      </ul>
+      <p class="hint">Press <kbd>H</kbd> or click to close.</p>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

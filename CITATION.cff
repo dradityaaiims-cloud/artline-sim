@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Dr. Singh's Art Line Simulator: an open educational arterial line and pressure transducer simulator"
+type: software
+authors:
+  - family-names: Singh
+    given-names: Aditya
+version: 0.1.0
+date-released: 2026-10-28
+license: MIT
