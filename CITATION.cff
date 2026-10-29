@@ -8,3 +8,6 @@ authors:
 version: 0.1.0
 date-released: 2026-10-28
 license: MIT
+repository-code: "https://github.com/dradityaaiims-cloud/artline-sim"
+url: "https://dradityaaiims-cloud.github.io/artline-sim/"
+keywords: [arterial line, invasive blood pressure, pressure transducer, damping, fast-flush test, hemodynamics, medical education, simulation, three.js]
