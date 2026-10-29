@@ -5,8 +5,9 @@ type: software
 authors:
   - family-names: Singh
     given-names: Aditya
-version: 0.1.0
-date-released: 2026-10-28
+version: 1.0.2
+date-released: 2026-10-29
+doi: 10.5281/zenodo.23750835
 license: MIT
 repository-code: "https://github.com/dradityaaiims-cloud/artline-sim"
 url: "https://dradityaaiims-cloud.github.io/artline-sim/"

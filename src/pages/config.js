@@ -1,8 +1,8 @@
 // Site settings for the About page. Nothing here is secret.
 export const CONFIG = {
-  version: '0.1.0',
+  version: '1.0.2',
   year: 2026,
-  doi: '', // set after the first Zenodo release
+  doi: '10.5281/zenodo.23750835',
   title: "Dr. Singh's Art Line Simulator: an open educational arterial line and pressure transducer simulator",
   // Contact email split so it is not plain text in the page source (reduces scraping).
   emailUser: 'draditya.aiims',

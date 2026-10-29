@@ -5,6 +5,8 @@ The patient's true arterial pressure and the pressure the monitor displays are c
 break the measurement chain (catheter → tubing → transducer → monitor), watch the trace stop telling the truth,
 and fix it with a fast-flush test, the stopcock, zeroing and levelling.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23750835.svg)](https://doi.org/10.5281/zenodo.23750835)
+
 **Live:** https://dradityaaiims-cloud.github.io/artline-sim/
 
 > Educational use only. Not a medical device. Not for clinical decisions, procedure planning, assessment or exams. All cases are simulated. Never enter patient information.
@@ -52,4 +54,4 @@ directional teaching values; a schematic bedside. Not validated for clinical use
 
 ## Licence and citation
 
-MIT (see `LICENSE`). Cite via `CITATION.cff` (a DOI will be added with the first Zenodo release).
+MIT (see `LICENSE`). Cite via `CITATION.cff`: DOI [10.5281/zenodo.23750835](https://doi.org/10.5281/zenodo.23750835).
